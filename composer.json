@@ -1,0 +1,39 @@
+{
+    "name": "cmradiology/ebsqs",
+    "type": "library",
+    "description": "Message Queue Amazon Event Bridge SQS Transport",
+    "keywords": ["messaging", "queue", "amazon", "aws", "Eventbridge", "sqs"],
+    "homepage": "https://www.cmrad.com",
+    "license": "MIT",
+    "require": {
+        "php": "^8.0",
+        "queue-interop/queue-interop": "^0.8",
+        "enqueue/dsn": "^0.10",
+        "enqueue/sqs": "^0.10",
+        "ramsey/uuid": "5.x-dev",
+        "aws/aws-sdk-php": "^3.306"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "enqueue/test": "0.10.x-dev",
+        "queue-interop/queue-spec": "^0.6.2",
+        "phpspec/prophecy-phpunit": "^2.0@dev"
+    },
+    "support": {
+        "issues": "https://github.com/php-enqueue/enqueue-dev/issues",
+        "source": "https://github.com/php-enqueue/enqueue-dev",
+        "docs": "https://github.com/php-enqueue/enqueue-dev/blob/master/docs/index.md"
+    },
+    "autoload": {
+        "psr-4": { "Cmrad\\EbSQS\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.10.x-dev"
+        }
+    }
+}
