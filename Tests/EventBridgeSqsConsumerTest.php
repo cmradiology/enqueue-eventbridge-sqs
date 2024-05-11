@@ -29,7 +29,7 @@ final class EventBridgeSqsConsumerTest extends TestCase
                     json_encode([
                         'source' => 'source',
                         'detail-type' => 'detail-type',
-                        'detail' => 'The Body',
+                        'detail' => ['message' => 'The Body'],
                     ])
                 )
             );
@@ -38,7 +38,7 @@ final class EventBridgeSqsConsumerTest extends TestCase
         $result = $consumer->receive();
 
         $this->assertInstanceOf(EventBridgeSqsMessage::class, $result);
-        $this->assertSame('The Body', $result->getBody());
+        $this->assertSame(json_encode(["message" => "The Body"]), $result->getBody());
         $this->assertSame([], $result->getHeaders());
         $this->assertSame(['source' => 'source', 'detail-type' => 'detail-type'], $result->getProperties());
     }

@@ -25,13 +25,13 @@ class EventBridgeSqsContextTest extends ContextSpec
             ->with($this->equalTo(new EventBridgeRule(
                 $topic,
                 'queueArn1',
-                'source1',
+                ['source1'],
                 ['Action'],
                 [],
             )));
         $ebContext->expects($this->any())
             ->method('getSource')
-            ->willReturn('source1');
+            ->willReturn(['source1']);
 
         $sqsContext = $this->createMock(SqsContext::class);
         $sqsContext->expects($this->any())

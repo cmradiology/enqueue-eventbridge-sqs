@@ -15,10 +15,10 @@ if ($autoload) {
     throw new \LogicException('Composer autoload was not found');
 }
 
-use Cmrad\EbSQS\SnsQsConnectionFactory;
+use Cmrad\EbSQS\EventBridgeSqsConnectionFactory;
 
-$context = (new SnsQsConnectionFactory([
-    'sns' => getenv('SNS_DSN'),
+$context = (new EventBridgeSqsConnectionFactory([
+    'eb' => getenv('EB_DSN'),
     'sqs' => getenv('SQS_DSN'),
 ]))->createContext();
 
@@ -27,7 +27,7 @@ $queue = $context->createQueue('queue');
 
 $context->declareTopic($topic);
 $context->declareQueue($queue);
-$context->bind($topic, $queue);
+$context->bind($topic, $queue, ['action'], ['source']);
 
 $message = $context->createMessage('Hello Bar!', ['key' => 'value'], ['key2' => 'value2']);
 

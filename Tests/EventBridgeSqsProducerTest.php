@@ -36,11 +36,11 @@ class EventBridgeSqsProducerTest extends TestCase
         $this->assertClassImplements(Producer::class, EventBridgeSqsProducer::class);
     }
 
-    public function testCouldBeConstructedWithRequiredArguments()
-    {
-        $this->markTestSkipped('The test is not valid anymore.');
-        new EventBridgeSqsProducer($this->createEventBridgeContextMock(), $this->createSqsContextMock());
-    }
+//    public function testCouldBeConstructedWithRequiredArguments()
+//    {
+//        $this->markTestSkipped('The test is not valid anymore.');
+//        new EventBridgeSqsProducer($this->createEventBridgeContextMock(), $this->createSqsContextMock());
+//    }
 
     public function testShouldThrowIfMessageIsInvalidType()
     {
