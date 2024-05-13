@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Cmrad\EbSQS;
 
 use Closure;
-use Enqueue\Sns\SnsSubscribe;
-use Enqueue\Sns\SnsUnsubscribe;
 use Enqueue\Sqs\SqsContext;
 use Interop\Queue\Consumer;
 use Interop\Queue\Context;
