@@ -11,7 +11,7 @@ use Interop\Queue\Message;
 class EventBridgeSqsMessage implements Message
 {
     use MessageTrait;
-    private SqsMessage $sqsMessage;
+    private ?SqsMessage $sqsMessage = null;
     private ?array $messageAttributes;
 
     /**
@@ -49,7 +49,11 @@ class EventBridgeSqsMessage implements Message
 
     public function getSqsMessage(): SqsMessage
     {
-        return $this->sqsMessage;
+        return $this->sqsMessage = $this->sqsMessage ?? new SqsMessage(
+            $this->body,
+            $this->properties,
+            $this->headers
+        );
     }
 
     public function getMessageAttributes(): ?array
