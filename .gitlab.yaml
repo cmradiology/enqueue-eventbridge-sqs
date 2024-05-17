@@ -7,7 +7,7 @@ php:
       - PHP_VERSION: "8.2"
       - PHP_VERSION: "8.3"
   script:
-    # Update spc (See https://github.com/shivammathur/spc for options)
+    # Update spc (See https://github.com/shivammathur/spc for options) 
     - spc -U
 
     # Setup PHP
