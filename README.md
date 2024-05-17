@@ -1,13 +1,6 @@
 # Amazon EventBridge-SQS Transport
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/cmradiology/enqueue-eventbridge-sqs/ci.yml?branch=master)](https://github.com/cmradiology/enqueue-eventbridge-sqs/actions?query=workflow%3ACI)
-[![Total Downloads](https://poser.pugx.org/enqueue/snsqs/d/total.png)](https://packagist.org/packages/enqueue/snsqs)
-[![Latest Stable Version](https://poser.pugx.org/enqueue/snsqs/version.png)](https://packagist.org/packages/enqueue/snsqs)
-
 This is an implementation of Queue Interop specification. It allows you to send and consume message using Amazon [EventBridge](https://aws.amazon.com/es/eventbridge)-[SQS](https://aws.amazon.com/es/sqs) service.
-
-A transport for [Amazon SQS](https://aws.amazon.com/sqs/) broker.
-It uses internally official [aws sdk library](https://packagist.org/packages/aws/aws-sdk-php)
 
 * [Installation](#installation)
 * [Create context](#create-context)
@@ -21,7 +14,7 @@ It uses internally official [aws sdk library](https://packagist.org/packages/aws
 ## Installation
 
 ```bash
-$ composer require enqueue/snsqs
+$ composer require cmradiology/ebsqs
 ```
 
 ## Create context
@@ -37,8 +30,8 @@ $factory = new EventBridgeSqsConnectionFactory([
     'source' => 'aSource', // default source for Event Bridge
 
     // or you can segregate options using prefixes "eb_", "sqs_"
-    'key' => 'aKey',              // common option for both SNS and SQS
-    'eb_region' => 'aEbRegion', // SNS transport option
+    'key' => 'aKey',              // common option for both EventBridge and SQS
+    'eb_region' => 'aEbRegion', // EventBridge transport option
     'sqs_region' => 'aSqsRegion', // SQS transport option
 ]);
 
@@ -156,7 +149,7 @@ $context->purgeQueue($fooQueue);
 ## Queue from another AWS account
 
 SQS allows to use queues from another account. You could set it globally for all queues via option `queue_owner_aws_account_id` or
-per queue using `SnsQsQueue::setQueueOwnerAWSAccountId` method.
+per queue using `EventBridgeSqsQueue::setQueueOwnerAWSAccountId` method.
 
 ```php
 <?php
@@ -174,7 +167,7 @@ $queue->setQueueOwnerAWSAccountId('awsAccountId');
 
 ## Multi region examples
 
-Enqueue SNSQS provides a generic multi-region support. This enables users to specify which AWS Region to send a command to by setting region on SnsQsQueue.
+Enqueue EventBridgeSqs provides a generic multi-region support. This enables users to specify which AWS Region to send a command to by setting region on EventBridgeSqsQueue.
 If not specified the default region is used.
 
 ```php
