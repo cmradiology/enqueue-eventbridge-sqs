@@ -136,15 +136,16 @@ class EventBridgeContext implements Context
                 return;
             }
         }
+        $pattern = [
+            'source' => $rule->getSource(),
+        ];
+        if ($rule->getDetailType()) {
+            $pattern['detail-type'] = $rule->getDetailType();
+        }
 
         $args = [
             'Name' => $rule->getName(),
-            'EventPattern' => json_encode(
-                [
-                    'source' => $rule->getSource(),
-                    'detail-type' => $rule->getDetailType(),
-                ]
-            ),
+            'EventPattern' => json_encode($pattern),
             'EventBusName' => $rule->getEventBus()->getEventBusName(),
         ];
 

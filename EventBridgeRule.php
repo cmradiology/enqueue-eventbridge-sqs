@@ -10,7 +10,7 @@ class EventBridgeRule
         private EventBridgeEventBus $eventBus,
         private string $name,
         private array $source,
-        private array $detailType,
+        private ?array $detailType,
         private array $attributes = []
     )
     {
@@ -36,7 +36,7 @@ class EventBridgeRule
         return $this->attributes;
     }
 
-    public function getDetailType(): array
+    public function getDetailType(): ?array
     {
         return $this->detailType;
     }

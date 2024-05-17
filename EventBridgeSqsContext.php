@@ -138,7 +138,7 @@ class EventBridgeSqsContext implements Context
         $this->getSqsContext()->deleteQueue($queue);
     }
 
-    public function bind(EventBridgeSqsTopic $topic, EventBridgeSqsQueue $queue, array $detailType, ?array $source = null): void
+    public function bind(EventBridgeSqsTopic $topic, EventBridgeSqsQueue $queue, ?array $detailType = null, ?array $source = null): void
     {
         $context = $this->getEventBridgeContext();
         $rule = new EventBridgeRule(
