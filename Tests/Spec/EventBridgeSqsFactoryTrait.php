@@ -60,7 +60,7 @@ trait EventBridgeSqsFactoryTrait
     protected function cleanUpSnsQs(): void
     {
         if ($this->eventBridgeSqsTopic) {
-            $this->eventBridgeSqsContext->unbind($this->eventBridgeSqsTopic, $this->eventBridgeSqsQueue);
+            $this->eventBridgeSqsContext->unbind($this->eventBridgeSqsTopic, $this->eventBridgeSqsQueue,  ['action'], ['source']);
             $this->eventBridgeSqsContext->deleteTopic($this->eventBridgeSqsTopic);
         }
 

@@ -2,20 +2,14 @@
 
 namespace Cmrad\EbSQS;
 
-use Enqueue\Sns\SnsDestination;
-use Enqueue\Sns\SnsMessage;
-use Enqueue\Sns\SnsProducer;
 use Interop\Queue\Consumer;
 use Interop\Queue\Context;
 use Interop\Queue\Destination;
 use Interop\Queue\Exception\PurgeQueueNotSupportedException;
 use Interop\Queue\Exception\SubscriptionConsumerNotSupportedException;
 use Interop\Queue\Exception\TemporaryQueueNotSupportedException;
-use Interop\Queue\Message;
-use Interop\Queue\Producer;
 use Interop\Queue\Queue;
 use Interop\Queue\SubscriptionConsumer;
-use Interop\Queue\Topic;
 
 class EventBridgeContext implements Context
 {
@@ -142,7 +136,7 @@ class EventBridgeContext implements Context
         if ($rule->getDetailType()) {
             $pattern['detail-type'] = $rule->getDetailType();
         }
-
+        var_dump($rule->getName());
         $args = [
             'Name' => $rule->getName(),
             'EventPattern' => json_encode($pattern),
