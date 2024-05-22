@@ -143,7 +143,11 @@ class EventBridgeSqsContext implements Context
         $context = $this->getEventBridgeContext();
         $rule = new EventBridgeRule(
             $topic,
-            $this->generateRuleName($queue, $source, $detailType),
+            $this->generateRuleName(
+                $queue,
+                $source ?? $context->getSource(),
+                $detailType
+            ),
             $source ?? $context->getSource(),
             $detailType,
         );
