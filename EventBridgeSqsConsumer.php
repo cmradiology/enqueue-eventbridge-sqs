@@ -127,9 +127,9 @@ class EventBridgeSqsConsumer implements Consumer
 
 
         if (!isset($data['source']) || !isset($data['detail-type'])) {
-            $message->setBody($data['detail']);
-            $message->setHeaders($data);
-            $message->setProperties($data);
+            $message->setBody($data['detail'] ?? $sqsMessage->getBody());
+            $message->setHeaders($sqsMessage->getHeaders());
+            $message->setProperties($sqsMessage->getProperties());
 
             return $message;
         }
