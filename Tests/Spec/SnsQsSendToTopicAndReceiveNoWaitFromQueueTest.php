@@ -41,8 +41,8 @@ class SnsQsSendToTopicAndReceiveNoWaitFromQueueTest extends SendToTopicAndReceiv
     public function test()
     {
         $this->context = $context = $this->createContext();
-        $topic = $this->createTopic($context, 'send_to_topic_and_receive_from_queue_spec');
-        $queue = $this->createQueue($context, 'send_to_topic_and_receive_from_queue_spec');
+        $topic = $this->createTopic($context, 'send_to_bus_and_receive_from_queue_spec');
+        $queue = $this->createQueue($context, 'send_to_bus_and_receive_from_queue_spec');
 
         $consumer = $context->createConsumer($queue);
 

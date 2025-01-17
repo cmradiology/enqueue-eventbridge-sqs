@@ -1,0 +1,19 @@
+image: shivammathur/node:bookworm
+
+php:
+  parallel:
+    matrix:
+      - PHP_VERSION: "8.1"
+      - PHP_VERSION: "8.2"
+      - PHP_VERSION: "8.3"
+  script:
+    # Update spc (See https://github.com/shivammathur/spc for options) 
+    - spc -U
+
+    # Setup PHP
+    - spc --php-version "$PHP_VERSION"
+      --extensions "bcmath, ctype, fileinfo, json, mbstring, openssl, pdo, tokenizer, xml"
+      --coverage "xdebug"
+
+    - composer install --no-progress --prefer-source
+    - vendor/bin/phpunit --exclude-group=functional

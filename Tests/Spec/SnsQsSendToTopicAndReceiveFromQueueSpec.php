@@ -2,7 +2,7 @@
 
 namespace Cmrad\EbSQS\Tests\Spec;
 
-use RetryTrait;
+use Enqueue\Test\RetryTrait;
 use Interop\Queue\Context;
 use Interop\Queue\Spec\SendToTopicAndReceiveFromQueueSpec;
 

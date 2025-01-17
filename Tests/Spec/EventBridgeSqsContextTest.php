@@ -4,8 +4,6 @@ namespace Cmrad\EbSQS\Tests\Spec;
 
 use Cmrad\EbSQS\EventBridgeContext;
 use Cmrad\EbSQS\EventBridgeRule;
-use Enqueue\Sns\SnsContext;
-use Enqueue\Sns\SnsSubscribe;
 use Cmrad\EbSQS\EventBridgeSqsContext;
 use Cmrad\EbSQS\EventBridgeSqsQueue;
 use Cmrad\EbSQS\EventBridgeSqsTopic;
@@ -20,11 +18,14 @@ class EventBridgeSqsContextTest extends ContextSpec
         $topic = new EventBridgeSqsTopic('topic1');
 
         $ebContext = $this->createMock(EventBridgeContext::class);
+        $sqsContext = $this->createMock(SqsContext::class);
+        $context = new EventBridgeSqsContext($ebContext, $sqsContext);
+        $queue = new EventBridgeSqsQueue('queueArn1');
         $ebContext->expects($this->once())
             ->method('createRule')
             ->with($this->equalTo(new EventBridgeRule(
                 $topic,
-                'queueArn1',
+                $context->generateRuleName($queue, ['source1'], ['Action']),
                 ['source1'],
                 ['Action'],
                 [],
@@ -33,7 +34,7 @@ class EventBridgeSqsContextTest extends ContextSpec
             ->method('getSource')
             ->willReturn(['source1']);
 
-        $sqsContext = $this->createMock(SqsContext::class);
+        
         $sqsContext->expects($this->any())
             ->method('createConsumer')
             ->willReturn($this->createMock(SqsConsumer::class));
@@ -41,10 +42,10 @@ class EventBridgeSqsContextTest extends ContextSpec
             ->method('getQueueArn')
             ->willReturn('queueArn1');
 
-        $context = new EventBridgeSqsContext($ebContext, $sqsContext);
+        
         $context->bind(
             $topic,
-            new EventBridgeSqsQueue('queueArn1'),
+            $queue,
             ['Action'],
         );
     }

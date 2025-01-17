@@ -143,7 +143,11 @@ class EventBridgeSqsContext implements Context
         $context = $this->getEventBridgeContext();
         $rule = new EventBridgeRule(
             $topic,
-            $queue->getQueueName(),
+            $this->generateRuleName(
+                $queue,
+                $source ?? $context->getSource(),
+                $detailType
+            ),
             $source ?? $context->getSource(),
             $detailType,
         );
@@ -183,14 +187,14 @@ class EventBridgeSqsContext implements Context
         );
     }
 
-    public function unbind(EventBridgeSqsTopic $topic, EventBridgeSqsQueue $queue): void
+    public function unbind(EventBridgeSqsTopic $topic, EventBridgeSqsQueue $queue, ?array $detailType = null, ?array $source = null): void
     {
         $context = $this->getEventBridgeContext();
         $rule = new EventBridgeRule(
             $topic,
-            $queue->getQueueName(),
-            $context->getSource(),
-            [],
+            $this->generateRuleName($queue, $source, $detailType),
+            $source,
+            $detailType,
         );
         $context->deleteTargets($rule);
         $context->deleteRule($rule);
@@ -242,5 +246,15 @@ class EventBridgeSqsContext implements Context
         }
 
         return $context;
+    }
+    
+    public function generateRuleName(EventBridgeSqsQueue $queue, ?array $source, ?array $detailType): string
+    {
+        return sprintf(
+            '%s-%s-%s',
+            $queue->getQueueName(),
+            implode('-', $source ?? ["ns"]),
+            implode('-', $detailType ?? ["ndt"])
+        );
     }
 }
